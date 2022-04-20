@@ -55,14 +55,6 @@ func registerCallbacks() {
 
     js.Global().Set("subtract", js.FuncOf(subtract))
 
-	/*addHandler := js.FuncOf(func (this js.Value, _ []js.Value) interface{} {
-		return js.Global().Get("window").Call("add", "value1", "value2", "result")
-	})
-
-	substractHandler := js.FuncOf(func (this js.Value, _ []js.Value) interface{} {
-		return js.Global().Get("window").Call("subtract", "value1", "value2", "result")
-	})*/
-
 	calculHandler := js.FuncOf(func (this js.Value, _ []js.Value) interface{} {
 		if GetOperator() == "add" {
 			return js.Global().Get("window").Call("add", "value1", "value2", "result")
@@ -72,15 +64,9 @@ func registerCallbacks() {
 		return 0
 	})
 	
-	/*addButton := js.Global().Get("document").Call("querySelector", "#addButton")
-    substractButton := js.Global().Get("document").Call("querySelector", "#subtractButton")*/
-	
 	calculButton := js.Global().Get("document").Call("querySelector", "#calcul")
 
 	calculButton.Call("addEventListener", "click", calculHandler)
-
-	/*addButton.Call("addEventListener", "click", addHandler)
-	substractButton.Call("addEventListener", "click", substractHandler)*/
 }
 
 func main() {
