@@ -1,0 +1,22 @@
+div {
+    display: flex;
+    flex-direction: column;
+}
+
+div > div {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+div > div > * {
+    flex: 1;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+button, select {
+    cursor: pointer;
+}

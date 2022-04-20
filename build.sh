@@ -1,0 +1,1 @@
+clear && GOARCH=wasm GOOS=js go build -o testnum.wasm testnum.go
