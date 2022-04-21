@@ -1,0 +1,1 @@
+clear ; $env:GOARCH="wasm" ; $env:GOOS="js" ; $env:GOPATH="" ; go build -o testnum.wasm testnum.go

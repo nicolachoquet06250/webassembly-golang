@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"strconv"
 	"syscall/js"
 	"net/http"
@@ -93,6 +94,21 @@ func fetch(url string, resolve js.Value, reject js.Value) any {
 	return nil
 }
 
+func MakeHttpRequest(url string) {
+	res, err := http.Get(url)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	sb := string(body)
+	println(sb)
+}
+
 func registerCallbacks() {
     js.Global().Set("add", js.FuncOf(add))
 
@@ -129,15 +145,8 @@ func registerCallbacks() {
 	calculButton := js.Global().Get("document").Call("querySelector", "#calcul")
 
 	calculButton.Call("addEventListener", "click", calculHandler)
-}
 
-func main() {
-    c := make(chan struct{}, 0)
-
-    println("WASM Go Initialized")
-    // register functions
-    registerCallbacks()
-
+	// requêtes http via js
 	js.Global().Call("MyGoFunc", "https://jsonplaceholder.typicode.com/todos/1").
 		Call("then", js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 			return args[0].Call("json")
@@ -147,5 +156,16 @@ func main() {
 			println(json_str.String())
 			return nil
 		}))
+	
+	// requêtes http via Go
+	MakeHttpRequest("https://jsonplaceholder.typicode.com/posts/1")
+}
+
+func main() {
+    c := make(chan struct{}, 0)
+
+    println("WASM Go Initialized")
+    // register functions
+    registerCallbacks()
     <-c
 }
