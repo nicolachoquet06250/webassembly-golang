@@ -1,6 +1,9 @@
 # webassembly-golang
 test avec WebAssembly &amp; GoLang
 
+## Exemple
+https://nicolachoquet06250.github.io/webassembly-golang/
+
 ## ANEXES
 
  - https://developer.mozilla.org/fr/docs/WebAssembly/C_to_wasm
