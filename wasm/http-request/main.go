@@ -12,6 +12,7 @@ func fetch(url string, resolve js.Value, reject js.Value) any {
 	go func() {
 		// Make the HTTP request
 		res, err := http.DefaultClient.Get(url)
+
 		if err != nil {
 			// Handle errors: reject the Promise if we have an error
 			errorConstructor := js.Global().Get("Error")
@@ -23,6 +24,7 @@ func fetch(url string, resolve js.Value, reject js.Value) any {
 
 		// Read the response body
 		data, err := ioutil.ReadAll(res.Body)
+
 		if err != nil {
 			// Handle errors here too
 			errorConstructor := js.Global().Get("Error")
@@ -50,11 +52,13 @@ func fetch(url string, resolve js.Value, reject js.Value) any {
 
 func MakeHttpRequest(url string) {
 	res, err := http.Get(url)
+	
 	if err != nil {
 		log.Fatalln(err)
 	}
 
 	body, err := ioutil.ReadAll(res.Body)
+
 	if err != nil {
 		log.Fatalln(err)
 	}
