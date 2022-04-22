@@ -50,9 +50,9 @@ func fetch(url string, resolve js.Value, reject js.Value) any {
 	return nil
 }
 
-func MakeHttpRequest(url string) {
+func makeHttpRequest(url string) {
 	res, err := http.Get(url)
-	
+
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -67,7 +67,7 @@ func MakeHttpRequest(url string) {
 	println(sb)
 }
 
-func MakeHttpRequestForJS(this js.Value, args []js.Value) interface{} {
+func makeHttpRequestForJS(this js.Value, args []js.Value) interface{} {
 	// Get the URL as argument
 	// args[0] is a js.Value, so we need to get a string out of it
 	requestUrl := args[0].String()
@@ -83,5 +83,41 @@ func MakeHttpRequestForJS(this js.Value, args []js.Value) interface{} {
 
 	// Create and return the Promise object
 	promiseConstructor := js.Global().Get("Promise")
-	return promiseConstructor.New(handler)
+	thenCb := js.FuncOf(func (this js.Value, args []js.Value) interface{} { return args[0].Call("json") })
+	return promiseConstructor.New(handler).Call("then", thenCb)
+}
+
+func registerMakeHttpRequestWithName(name ...string) {
+	if len(name) == 0 {
+		name[0] = "MakeHttpRequest"
+	}
+
+	js.Global().Set(name[0], js.FuncOf(makeHttpRequestForJS))
+}
+
+func callMakeHttpRequestFromName(url string, name ...string) {
+	if len(name) == 0 {
+		name[0] = "MakeHttpRequest"
+	}
+
+	requestCb := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		json := args[0]
+		json_str := js.Global().Get("JSON").Call("stringify", json)
+
+		println(json_str.String())
+
+		return nil
+	})
+
+	js.Global().Call(name[0], url).Call("then", requestCb)
+}
+
+func RegisterCallbacks() {
+	// requêtes http via js
+	var funcName string = "MyGoFunc"
+	registerMakeHttpRequestWithName(funcName)
+	callMakeHttpRequestFromName("https://jsonplaceholder.typicode.com/todos/1", funcName)
+	
+	// requêtes http via Go
+	makeHttpRequest("https://jsonplaceholder.typicode.com/posts/1")
 }
