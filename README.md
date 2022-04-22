@@ -20,3 +20,6 @@ https://nicolachoquet06250.github.io/webassembly-golang/
  - https://zchee.github.io/golang-wiki/WebAssembly/
  - https://betterprogramming.pub/go-webassembly-http-requests-and-promises-ddb76af69ba8
  - https://jsonplaceholder.typicode.com/
+ - https://go.dev/doc/tutorial/create-module
+ - https://gauthier.frama.io/post/gomodules/
+ - https://linguinecode.com/post/how-to-import-local-files-packages-in-golang
