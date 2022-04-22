@@ -23,3 +23,4 @@ https://nicolachoquet06250.github.io/webassembly-golang/
  - https://go.dev/doc/tutorial/create-module
  - https://gauthier.frama.io/post/gomodules/
  - https://linguinecode.com/post/how-to-import-local-files-packages-in-golang
+ - https://golangbot.com/learn-golang-series/
