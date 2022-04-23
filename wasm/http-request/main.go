@@ -1,13 +1,15 @@
 package httprequest
 
 import (
-	"log"
-	"syscall/js"
-	"net/http"
 	"io/ioutil"
+	"log"
+	"net/http"
+	"syscall/js"
 )
 
-func fetch(url string, resolve js.Value, reject js.Value) any {
+type Value = js.Value
+
+func fetch(url string, resolve Value, reject Value) any {
 	// Run this code asynchronously
 	go func() {
 		// Make the HTTP request
@@ -67,14 +69,14 @@ func makeHttpRequest(url string) {
 	println(sb)
 }
 
-func makeHttpRequestForJS(this js.Value, args []js.Value) interface{} {
+func makeHttpRequestForJS(this Value, args []Value) interface{} {
 	// Get the URL as argument
 	// args[0] is a js.Value, so we need to get a string out of it
 	requestUrl := args[0].String()
 
 	// Handler for the Promise
 	// We need to return a Promise because HTTP requests are blocking in Go
-	handler := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+	handler := js.FuncOf(func(this Value, args []Value) interface{} {
 		resolve := args[0]
 		reject := args[1]
 
@@ -83,7 +85,7 @@ func makeHttpRequestForJS(this js.Value, args []js.Value) interface{} {
 
 	// Create and return the Promise object
 	promiseConstructor := js.Global().Get("Promise")
-	thenCb := js.FuncOf(func (this js.Value, args []js.Value) interface{} { return args[0].Call("json") })
+	thenCb := js.FuncOf(func(this Value, args []Value) interface{} { return args[0].Call("json") })
 	return promiseConstructor.New(handler).Call("then", thenCb)
 }
 
@@ -100,7 +102,7 @@ func callMakeHttpRequestFromName(url string, name ...string) {
 		name[0] = "MakeHttpRequest"
 	}
 
-	requestCb := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+	requestCb := js.FuncOf(func(this Value, args []Value) interface{} {
 		json := args[0]
 		json_str := js.Global().Get("JSON").Call("stringify", json)
 
@@ -117,7 +119,7 @@ func RegisterCallbacks() {
 	var funcName string = "MyGoFunc"
 	registerMakeHttpRequestWithName(funcName)
 	callMakeHttpRequestFromName("https://jsonplaceholder.typicode.com/todos/1", funcName)
-	
+
 	// requêtes http via Go
 	makeHttpRequest("https://jsonplaceholder.typicode.com/posts/1")
 }
