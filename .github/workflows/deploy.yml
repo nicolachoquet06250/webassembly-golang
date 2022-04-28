@@ -21,8 +21,8 @@ jobs:
       - name: Deploy
         uses: exuanbo/actions-deploy-gist@v1
         with:
-          token: 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
-          gist_id: 2f001ee83be8a23e0ec605ec3a9de016
-          gist_description: "build of webassembly-golang repo "
-          gist_file_name: testnum.wasm
-          file_path: ./wasm/testnum.wasm
+          token: ${{ secrets.GITHUB_TOKEN }}
+          gist_id: "2f001ee83be8a23e0ec605ec3a9de016"
+          gist_description: "build of webassembly-golang repo"
+          gist_file_name: "testnum.wasm"
+          file_path: "./wasm/testnum.wasm"
