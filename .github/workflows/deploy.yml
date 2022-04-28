@@ -17,7 +17,7 @@ jobs:
         with:
           go-version: 1.18
       - name: Build WASM Binary
-        run: "cd wasm && GOARCH=wasm GOOS=js go build -o testnum.wasm main.go"
+        run: "cd wasm && GOARCH=wasm GOOS=js go build -o testnum.wasm main.go && cd ../"
       - name: Deploy
         uses: exuanbo/actions-deploy-gist@v1
         with:
