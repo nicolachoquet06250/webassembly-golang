@@ -19,10 +19,18 @@ jobs:
       - name: Build WASM Binary
         run: "cd wasm && GOARCH=wasm GOOS=js go build -o testnum.wasm main.go && cd ../"
       - name: Deploy
-        uses: exuanbo/actions-deploy-gist@v1
+        uses: popsiclestick/gist-sync-action@v1.2.0
+        id: sync
         with:
-          token: ${{ secrets.TOKEN }}
-          gist_id: 2f001ee83be8a23e0ec605ec3a9de016
+          auth: ${{ secrets.TOKEN }}
+          gist_url: https://gist.github.com/nicolachoquet06250/2f001ee83be8a23e0ec605ec3a9de016
+          gist_title: testnum.wasm
           gist_description: build of webassembly-golang repo
-          gist_file_name: testnum.wasm
-          file_path: ./wasm/testnum.wasm
+          github_file: ./wasm/testnum.wasm
+        #uses: exuanbo/actions-deploy-gist@v1
+        #with:
+        #  token: ${{ secrets.TOKEN }}
+        #  gist_id: 2f001ee83be8a23e0ec605ec3a9de016
+        #  gist_description: build of webassembly-golang repo
+        #  gist_file_name: testnum.wasm
+        #  file_path: ./wasm/testnum.wasm
