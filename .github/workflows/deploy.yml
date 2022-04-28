@@ -1,0 +1,22 @@
+on:
+  push:
+    tags:
+      - 'v*'
+
+name: deploy
+
+jobs:
+  deploy_on_github_gist:
+    name: Deploy on Github Gist
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Deploy
+        uses: exuanbo/actions-deploy-gist@v1
+        with:
+          token: ${{ secrets.TOKEN }}
+          gist_id: 2f001ee83be8a23e0ec605ec3a9de016
+          gist_description: "build of webassembly-golang repo "
+          gist_file_name: testnum.wasm
+          file_path: ./wasm/testnum.wasm
