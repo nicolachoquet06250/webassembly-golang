@@ -12,6 +12,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Init Go environment
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.18
       - name: Build WASM Binary
         run: ./wasm/build.sh
       - name: Deploy
