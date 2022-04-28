@@ -22,7 +22,7 @@ jobs:
         uses: popsiclestick/gist-sync-action@v1.2.0
         id: sync
         with:
-          auth: ${{ secrets.TOKEN }}
+          auth: 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
           gist_url: https://gist.github.com/nicolachoquet06250/2f001ee83be8a23e0ec605ec3a9de016
           gist_title: testnum.wasm
           gist_description: build of webassembly-golang repo
