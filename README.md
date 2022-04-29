@@ -2,7 +2,7 @@
 test avec WebAssembly &amp; GoLang
 
 ## Exemple
-https://nicolachoquet06250.github.io/webassembly-golang/
+https://webassembly-golang.nicolaschoquet.fr/
 
 ## ANEXES
 
