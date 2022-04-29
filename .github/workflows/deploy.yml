@@ -39,6 +39,6 @@ jobs:
       - name: Build WASM Binary and Deploy
         uses: sterlingwes/gh-pages-deploy-action@v1.1
         with:
-          access-token: ${{ secrets.ACCESS_TOKEN }}
+          access-token: ${{ secrets.TOKEN }}
           source-directory: wasm
           build-command: GOARCH=wasm GOOS=js go build -o testnum.wasm main.go
