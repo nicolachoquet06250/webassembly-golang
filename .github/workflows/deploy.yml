@@ -53,6 +53,7 @@ jobs:
           script: |
             if [ -d "./webassembly-golang" ]; then rm -rf webassembly-golang; fi;
             git clone https://github.com/nicolachoquet06250/webassembly-golang.git;
+
       - name: Copy wasm file
         uses: appleboy/scp-action@master
         with:
