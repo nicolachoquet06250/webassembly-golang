@@ -41,7 +41,7 @@ func add(this Value, i []Value) interface{} {
 
 	rValue, _ := getValue(resultSelector)
 
-	println("subtract: ", rValue)
+	println("add: ", rValue)
 
 	return rValue
 }
