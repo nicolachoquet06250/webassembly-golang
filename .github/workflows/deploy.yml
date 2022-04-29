@@ -33,7 +33,7 @@ jobs:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Init Go environment
         uses: actions/setup-go@v3
@@ -41,11 +41,10 @@ jobs:
           go-version: 1.18
 
       - name: Build WASM Binary
-        run: "cd wasm && GOARCH=wasm GOOS=js go build -o testnum.wasm main.go && cd ../"
+        run: "cd wasm && GOARCH=wasm GOOS=js go build -o testnum.wasm main.go"
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        #if: ${{ github.ref == 'refs/heads/main' }}
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.TOKEN }}
-          publish_dir: ./
+          branch: gh-pages
+          folder: ~/
