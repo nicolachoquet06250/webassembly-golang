@@ -41,4 +41,4 @@ jobs:
         with:
           access-token: ${{ secrets.TOKEN }}
           source-directory: wasm
-          build-command: GOARCH=wasm GOOS=js go build -o testnum.wasm main.go
+          build-command: "cd wasm && GOARCH=wasm GOOS=js go build -o testnum.wasm main.go"
