@@ -41,8 +41,8 @@ jobs:
           cd wasm
           GOARCH=wasm GOOS=js go build -o testnum.wasm main.go
           cd ../
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4.3.3
-        with:
-          branch: main # The branch the action should deploy to.
-          folder: ~/ # The folder the action should deploy.
+      #- name: Deploy
+      #  uses: JamesIves/github-pages-deploy-action@v4.3.3
+      #  with:
+      #    branch: main # The branch the action should deploy to.
+      #    folder: ~/ # The folder the action should deploy.
